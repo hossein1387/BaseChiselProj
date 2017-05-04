@@ -10,4 +10,4 @@ To use this repository with IntelliJ IDEA run the project from command line by r
 
     sbt run
 
-And then import the project in IntelliJ as an sbt project. For somereason, if you don't run the project before importing it to InjtelliJ, Injtellij would not be able to find chisel dependency.
+And then import the project in IntelliJ as an sbt project. For some reason, if you don't run the project before importing it to InjtelliJ, Injtellij would not be able to find chisel dependency.
