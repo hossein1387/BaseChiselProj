@@ -12,11 +12,14 @@ class FullAdderUnitTester(c: FullAdder) extends PeekPokeTester(c) {
   for(cin <- 0 to 1 by 1) {
     for (in1 <- 0 to 1 by 1) {
       for (in0 <- 0 to 1 by 1) {
+        val sout = peek(fa.io.sout)
+        val cout = peek(fa.io.cout)
         poke(fa.io.cin, cin)
         poke(fa.io.in1, in1)
         poke(fa.io.in0, in0)
         expect(fa.io.cout, ((in0&in1)|(cin&in0)|(cin&in1)))
         expect(fa.io.sout, (in0^in1))
+        printf("%d %d %d   %d %d \n", cin, in1, in0, sout, cout);
       }
     }
   }
