@@ -9,17 +9,22 @@ class FullAdderUnitTester(c: FullAdder) extends PeekPokeTester(c) {
 
   private val fa = c
 
+  printf("c a b   o s\n");
   for(cin <- 0 to 1 by 1) {
     for (in1 <- 0 to 1 by 1) {
       for (in0 <- 0 to 1 by 1) {
-        val sout = peek(fa.io.sout)
-        val cout = peek(fa.io.cout)
+        val res = cin + in1 + in0
+        val sum = res & 1
+        val cout= (res>>1) & 1
         poke(fa.io.cin, cin)
         poke(fa.io.in1, in1)
         poke(fa.io.in0, in0)
-        expect(fa.io.cout, ((in0&in1)|(cin&in0)|(cin&in1)))
-        expect(fa.io.sout, (in0^in1))
-        printf("%d %d %d   %d %d \n", cin, in1, in0, sout, cout);
+        step(1)
+        expect(fa.io.cout, cout)
+        expect(fa.io.sout, sum)
+        val sout = peek(fa.io.sout)
+        val cout_print = peek(fa.io.cout)
+        printf("%d %d %d   %d %d \n", cin, in1, in0, cout_print, sout);
       }
     }
   }
@@ -28,7 +33,7 @@ class FullAdderUnitTester(c: FullAdder) extends PeekPokeTester(c) {
 class FullAdderTester extends ChiselFlatSpec {
   private val backendNames = Array[String]("firrtl"/*, "verilator"*/)
   for ( backendName <- backendNames ) {
-    "FullAdder" should s"Simple 1 bit fulladder imp (with $backendName)" in {
+    "FullAdder" should s"Implement simple 1 bit fulladder (with $backendName)" in {
       Driver(() => new FullAdder, backendName) {
         c => new FullAdderUnitTester(c)
       } should be (true)

@@ -18,5 +18,5 @@ class FullAdder extends Module {
   val in0_and_cin = io.in0 & io.cin
   val in1_and_cin = io.cin & io.in1
   io.cout := in0_and_in1 | in0_and_cin | in1_and_cin
-  io.sout := in0_xor_in1
+  io.sout := in0_xor_in1 ^  io.cin
 }
