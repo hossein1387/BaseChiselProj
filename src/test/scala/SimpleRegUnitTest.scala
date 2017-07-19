@@ -14,6 +14,9 @@ class SimpleRegUnitTester(c: SimpleReg) extends PeekPokeTester(c) {
     step(1)
     expect(sreg.io.out, in)
   }
+  printf("======================================\n");
+  printf("Test Pass!\n");
+  printf("======================================\n");
 
 }
 
